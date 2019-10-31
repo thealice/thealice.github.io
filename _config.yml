@@ -1,11 +1,11 @@
 # Site settings
-author: Alice Freda
-title: 
+author: Alice F.
+title: I heard blogging was dead
 header-img: img/home-bg.png
 email: alicefreda@gmail.com
-copyright_name: Alice Freda
+copyright_name: Alice F.
 description: > # this means to ignore newlines until "baseurl:"
-  
+  I'm just trying to live
 baseurl: "" # the subpath of your site, e.g. /blog
 twitter_username: 
 github_username:  thealice
