@@ -1,13 +1,15 @@
 ---
 layout: post
 title:      "What am I doing here?"
-date:       2019-10-31 08:07:00 +0000
+date:       2019-10-31 04:07:01 -0400
 permalink:  what_am_i_doing_here
 ---
 
 
 
-To be honest, I find myself asking that question a lot. Maybe I'm running a meeting at work, or giving a presentation or at a job interview. Maybe I'm at a protest feeling very small, or a rap show feeling very old. Why am I here? To listen? Lead? Give? Take? What am I contributing? *Should I even be here?* It doesn't really matter what I'm doing, I'm probably overthinking it.
+To be honest, I find myself asking that question a lot. Maybe I'm running a meeting at work, or giving a presentation or at a job interview. Maybe I'm at a protest feeling very small, or a rap show feeling very old. Why am I here? To listen? Lead? Give? Take? What am I contributing? *Should I even be here?* 
+
+It doesn't really matter what I'm doing, I'm probably overthinking it.
 
 Signing up for a coding bootcamp isn't the easiest thing to do for someone who already struggles with imposter syndrome, but that's also a big part of why I wanted to do it. I hope that for all the challenges I'll face learning to code, there'll be as many moments where I recognize that my experience has helped me navigate them. That actually, I've got this, and maybe even know what I'm doing, thankyouverymuch.
 
