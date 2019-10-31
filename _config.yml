@@ -1,11 +1,11 @@
 # Site settings
 author: Alice F.
-title: This is a blog
+title: Not sticking to sports
 header-img: img/home-bg.png
 email: alicefreda@gmail.com
 copyright_name: Alice F.
 description: > # this means to ignore newlines until "baseurl:"
-  Not sticking to sports
+  This is a blog
 baseurl: "" # the subpath of your site, e.g. /blog
 twitter_username: 
 github_username:  thealice
