@@ -1,13 +1,13 @@
 ---
 layout: post
 title:      "My first CLI Project"
-date:       2019-12-08 06:51:29 +0000
+date:       2019-12-08 01:51:30 -0500
 permalink:  my_first_cli_project
 ---
 
 
 ```
-MNNmNmmdmNNNNmdhyyyyyyyyyhdhhhyyyysssssyyyyyyyyyyyyyyo://oooo+:--``:/+syyysssyyyyyyyyyyyyyyyyyyy
+dmMMMNNmNmmdmNNNNmdhyyyyyyyyyhdhhhyyyysssssyyyyyyyyyyyyyyo://oooo+:--``:/+syyysssyyyyyyyyyyyyyyyyyyy
 NMMMMMMMMMMMMMMMMMMMNmmmmmNNNMMMMMmdhyyyyyyyyyyyyyyyyyyyho:/:/-`    ```````./oyyyyyyyyyyyyyyyyyyyyyy
 NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNmddhhhhyyyyyyyyyyyyho::`  ./oyddmddhs/.``./yyyyyyyyyyyyyyyyyyyy
 NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNmmddhhhhhhhhh+. `-ymNNNNNNNNNNNmo-``.+yhyhhhhhyyhyhhyhhh
@@ -39,5 +39,5 @@ hyyyyhNNNNmssyy--+yyy:ommmmmmmmmmh/.+yyyyyyyyys//::-..```                       
 ///://///////////+mNmNmNNNNNNNNNNNddNNNo//:......`````                               ``````.........
 :::::::::::::::::yNNNmhmNNNNNNNNNmhdNNms::-.....``````                               ```````.....`..
 :::::::::::::::::hdmNmyhhhddddddhysmmdh+::....````````                               ```````.....```
-:::::::::::::::::hhhhdyhhhhhhhhhhsohhhy+--.....``````` `                              ````````....`` 
+:::::::::::::::::hhhhdyhhhhhhhhhhsohhhy+--.....``````` `                              ````````....
 ```
