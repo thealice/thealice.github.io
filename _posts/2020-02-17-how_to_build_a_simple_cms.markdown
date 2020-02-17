@@ -34,7 +34,7 @@ For my project, I didn't want my site visitors to have to edit each list item se
 
 Think through your database, before building it out. I found [this blog post](https://alicebrunel.github.io/sinatra_portfolio_project_-_database_design) by fellow Flatiron student Alice Brunel helpful when thinking this through.
 
-Thie planning process takes time, and you should let it. Initially I had grand ideas for what my app would do, and when I got to designing the database I decided to pair back to meet the requirements of my project without going overboard. If you aren't super comfortable with has_many_through associations, you can start with has_many and belongs_to relationships.
+The planning process takes time--don't rush it! Initially I had grand ideas for what my app would do, and when I got to designing the database I decided to pair back to meet the requirements of my project without going overboard. If you aren't super comfortable with has_many_through associations, you can start with has_many and belongs_to relationships.
 
 Once you have a pretty good idea of how the models, views and controller will interact, it's time to...
 
@@ -87,6 +87,10 @@ Once your models are setup you can move on to Views and Controllers.
 ## Controllers
 
 Controllers are where you'll be setting the routes for your CRUD actions, among other things. CRUD stands for Create, Read, Update, Delete, all ways of manipulating data. In your controller, you will determine what view is rendered based on the URL the user is visiting. When creating a new piece of content, a user can go to an html form a view file (conventionally called new.erb). The controller will direct them there when, for instance they go to www.example.com/list/new.  Once the user submits the form, its POST action will send the inputted information back to the controller, which will extract the inputted data and store it to the database using the params hash. If a user enters information into an input with the name "content", the inputted data can be retrieved in the POST route within the controller viea the content key of the params hash, eg. params[:content].
+
+## Views
+
+As mentioned above, views are the way in which we display content to a site visitor.  They are what's often referred to as the "front-end" of a website, and, in a Sinatra app, mostly consist of HTML intersperced with Ruby code wrapped in ERB tags.
 
 ## Security
 
