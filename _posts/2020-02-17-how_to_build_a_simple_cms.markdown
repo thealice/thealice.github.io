@@ -74,11 +74,29 @@ Once your models are setup you can move on to Views and Controllers.
 
 ## Controllers
 
-Controllers are where you'll be setting the routes for your CRUD actions, among other things. CRUD stands for Create, Read, Update, Delete, all ways of manipulating data. In your controller, you will determine what view is rendered based on the URL the user is visiting. When creating a new piece of content, a user can go to an html form a view file (conventionally called new.erb). The controller will direct them there when, for instance they go to www.example.com/list/new.  Once the user submits the form, its POST action will send the inputted information back to the controller, which will extract the inputted data and store it to the database using the params hash. If a user enters information into an input with the name "content", the inputted data can be retrieved in the POST route within the controller viea the content key of the params hash, eg. params[:content].  Edit forms use a PATCH action and delete forms use a DELETE action, but otherwise work in pretty much the same way.
+Controllers are where you'll be setting the routes for your CRUD actions, among other things. CRUD stands for Create, Read, Update, Delete, all ways of manipulating data. In your controller, you will determine what view is rendered based on the URL the user is visiting. To create a new piece of content, a user might be directed to an html form in a view file (conventionally called new.erb). The controller will direct them there when, for instance they go to www.example.com/list/new.  Once the user submits the form, its POST action will send the inputted information back to the controller, which will extract the inputted data and store it to the database using the params hash. If a user enters information into an input with the name "content", the inputted data can be retrieved in the POST route within the controller viea the content key of the params hash, eg. params[:content].  Edit forms use a PATCH action and delete forms use a DELETE action, but otherwise work in pretty much the same way.
 
 ## Views
 
-As mentioned above, views are the way in which we display content to a site visitor.  They are what's often referred to as the "front-end" of a website, and, in a Sinatra app, mostly consist of HTML intersperced with Ruby code wrapped in ERB tags. Forms to add, edit, or delete content are displayed in a view.
+As mentioned above, views are the way in which we display content to a site visitor.  They are what's often referred to as the "front-end" of a website, and, in a Sinatra app, mostly consist of HTML intersperced with Ruby code wrapped in ERB tags. The HTML is styled with CSS and sometimes JavaScript. Forms to add, edit, or delete content are displayed in a view, as well as anything else displayed on a web application. An example of a "show" view for a simple list might look something like:
+
+```
+<p class="details">
+		authored by: <a href="/users/<%= list_owner.id %>"><%= list_owner.username %></a>
+		<% if @list.category %>
+				<br>
+				category: <a href="/categories/<%= @list.category.id %>"><%= @list.category.name %></a> 
+		<% end %>
+</p>
+
+<ol class="show-list">
+		<% @list.list_items.each do |item| %>
+				<li><%= item.content  %></li>
+		<% end %>
+</ol>
+```
+
+You'll notice this view has ruby embedded within ERB tags. It might be better for me to take a bit more logic out of the view and put it into the lists controller.
 
 ## Security
 
