@@ -18,7 +18,7 @@ Like with all projects, it helps to sit down and do some planning before digging
 * Which pieces of data are related to one another, and how? That is, how will your Ruby objects and their attributes be associated with one another, and how will that inform your database structure?
 * Will you need a controller and views for every model or will your users be manipulating different pieces of data on the same page? 
 
-For my project, I didn't want my site visitors to have to edit each list item separately, and thought it made more sense for them to be able to add list items via the same form in they were adding or editing a list, so I opted out of using a List-Items Controller and kept that logic in the parent Lists Controller, with the forms in the List views. The list items were nested within the same forms for the "add new" and "edit" forms for their parent Lists.
+For my project, I wanted to keep track of data stored in lists. I didn't want my site visitors to have to edit each list item separately, and thought it made more sense for them to be able to add list items via the same form in they were adding or editing a list, so I opted out of using a ListItems Controller and kept that logic in the parent Lists Controller, with the forms to add or edit the content nested within the List views. 
 
 Think through your database, before building it out. I found [this blog post](https://alicebrunel.github.io/sinatra_portfolio_project_-_database_design) by fellow Flatiron student Alice Brunel helpful when thinking this through.
 
@@ -65,8 +65,8 @@ Here's an example from my project of some associations in the list model (list.r
 
 ```
 class List < ActiveRecord::Base
-belongs_to :user
-has_many :list_items   
+    belongs_to :user
+    has_many :list_items   
 end
 ```
 
@@ -74,11 +74,11 @@ Once your models are setup you can move on to Views and Controllers.
 
 ## Controllers
 
-Controllers are where you'll be setting the routes for your CRUD actions, among other things. CRUD stands for Create, Read, Update, Delete, all ways of manipulating data. In your controller, you will determine what view is rendered based on the URL the user is visiting. When creating a new piece of content, a user can go to an html form a view file (conventionally called new.erb). The controller will direct them there when, for instance they go to www.example.com/list/new.  Once the user submits the form, its POST action will send the inputted information back to the controller, which will extract the inputted data and store it to the database using the params hash. If a user enters information into an input with the name "content", the inputted data can be retrieved in the POST route within the controller viea the content key of the params hash, eg. params[:content].
+Controllers are where you'll be setting the routes for your CRUD actions, among other things. CRUD stands for Create, Read, Update, Delete, all ways of manipulating data. In your controller, you will determine what view is rendered based on the URL the user is visiting. When creating a new piece of content, a user can go to an html form a view file (conventionally called new.erb). The controller will direct them there when, for instance they go to www.example.com/list/new.  Once the user submits the form, its POST action will send the inputted information back to the controller, which will extract the inputted data and store it to the database using the params hash. If a user enters information into an input with the name "content", the inputted data can be retrieved in the POST route within the controller viea the content key of the params hash, eg. params[:content].  Edit forms use a PATCH action and delete forms use a DELETE action, but otherwise work in pretty much the same way.
 
 ## Views
 
-As mentioned above, views are the way in which we display content to a site visitor.  They are what's often referred to as the "front-end" of a website, and, in a Sinatra app, mostly consist of HTML intersperced with Ruby code wrapped in ERB tags.
+As mentioned above, views are the way in which we display content to a site visitor.  They are what's often referred to as the "front-end" of a website, and, in a Sinatra app, mostly consist of HTML intersperced with Ruby code wrapped in ERB tags. Forms to add, edit, or delete content are displayed in a view.
 
 ## Security
 
@@ -88,7 +88,7 @@ You will also need to limit GET, POST, PATCH and DELETE routes so user1 can't ed
 
 ```
 def current_user 
-@current_user ||= User.find_by(:username => session[:username]) if session[:username]
+    @current_user ||= User.find_by(:username => session[:username]) if session[:username]
 end
 ```
 
@@ -98,7 +98,7 @@ This is a key used for signing and encrypting cookies set by your application to
 The session secret:
 * should *not* manually entered (a randomly generated key of at least 64 bytes is best)
 * should *not* be easy to guess (please don't use "secret" in development because you may forget to switch it over when deploying to a production environment) and 
-* should *not* be submitted to your github repo (use the DotEnv ruby gem
+* should *not* be submitted to your github repo (use the DotEnv ruby gem)
 
 [This blog post](https://mackenzie-km.github.io/secure_session_secrets_for_sinatra) by Mackenzie Moore dives a bit deeper into session secrets and how to install and implement DotEnv.
 
