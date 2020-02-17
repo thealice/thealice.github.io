@@ -1,11 +1,11 @@
 ---
 layout: post
 title:      "How to build a simple CMS "
-date:       2020-02-17 05:07:42 +0000
+date:       2020-02-17 00:07:43 -0500
 permalink:  how_to_build_a_simple_cms
 ---
 
-### with Sinatra and Active Record
+The simple answer? With Corneal, Sinatra and Active Record!
 
 ## Project Requirements: 
 
@@ -21,11 +21,20 @@ permalink:  how_to_build_a_simple_cms
 
 ## Planning
 
-What will your app be used for? How will your users be interacting with their data? How will your Ruby objects be associated with one another? 
+Like with all projects, it helps to sit down and do some planning before digging in. Some questions that might help get you started:
 
-Think through your database. I found [this blog post](https://alicebrunel.github.io/sinatra_portfolio_project_-_database_design) by fellow Flatiron student Alice Brunel helpful when thinking this through.
+* What will your app be used for?
+* Who will be using it? 
+* What can you do to help ensure it's accessible to the greatest number of people?
+* How and where will your users be interacting with their content? 
+* Which pieces of data are related to one another, and how? That is, how will your Ruby objects and their attributes be associated with one another, and how will that inform your database structure?
+* Will you need a controller and views for every model or will your users be manipulating different pieces of data on the same page? 
 
-This process takes time. Initially I had grand ideas for what my app would do, and when I got to designing the database I decided to pair back to meet the requirements of my project without going overboard. If you aren't super comfortable with has_many_through associations, you can stick to has_many and belongs_to relationships.
+For my project, I didn't want my site visitors to have to edit each list item separately, and thought it made more sense for them to be able to add list items via the same form in they were adding or editing a list, so I opted out of using a List-Items Controller and kept that logic in the parent Lists Controller, with the forms in the List views. The list items were nested within the same forms for the "add new" and "edit" forms for their parent Lists.
+
+Think through your database, before building it out. I found [this blog post](https://alicebrunel.github.io/sinatra_portfolio_project_-_database_design) by fellow Flatiron student Alice Brunel helpful when thinking this through.
+
+Thie planning process takes time, and you should let it. Initially I had grand ideas for what my app would do, and when I got to designing the database I decided to pair back to meet the requirements of my project without going overboard. If you aren't super comfortable with has_many_through associations, you can start with has_many and belongs_to relationships.
 
 Once you have a pretty good idea of how the models, views and controller will interact, it's time to...
 
@@ -45,7 +54,8 @@ Add your models. Corneal can get this started for you too!
 Type `corneal scaffold MODEL` (replacing MODEL with the name of your model, singular). You can even add attributes to your model that will be added to the database migration files at the same time by typing `corneal scaffold MODEL ATTR-NAME:DATATYPE ATTR-NAME:DATATYPE`
 For example, `corneal scaffold user username:string password_digest:string` will add a new user.rb file in the models directory, a user directory under "views" with index.erb, show.erb, new.erb and edit.erb, and a database migration file that looks like the following:
 
-`class CreateUsers < ActiveRecord::Migration
+```
+class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
       t.string :username
@@ -54,7 +64,8 @@ For example, `corneal scaffold user username:string password_digest:string` will
       t.timestamps null: false
     end
   end
-end`
+end
+```
 
 Once the database tables are created (`rake db:migrate`) you'll want to add assocations to the models. 
 
@@ -64,19 +75,39 @@ Take time to think this through again. If you have to, you can create and run mo
 
 Here's an example from my project of some associations in the list model (list.rb):
 
-`class List < ActiveRecord::Base
-    belongs_to :user
-    has_many :list_items   
-end`
+```
+class List < ActiveRecord::Base
+belongs_to :user
+has_many :list_items   
+end
+```
+
+Once your models are setup you can move on to Views and Controllers.
+
+## Controllers
+
+Controllers are where you'll be setting the routes for your CRUD actions, among other things. CRUD stands for Create, Read, Update, Delete, all ways of manipulating data. In your controller, you will determine what view is rendered based on the URL the user is visiting. When creating a new piece of content, a user can go to an html form a view file (conventionally called new.erb). The controller will direct them there when, for instance they go to www.example.com/list/new.  Once the user submits the form, its POST action will send the inputted information back to the controller, which will extract the inputted data and store it to the database using the params hash. If a user enters information into an input with the name "content", the inputted data can be retrieved in the POST route within the controller viea the content key of the params hash, eg. params[:content].
 
 ## Security
 
-If you are building a CMS allows users to log in, log out, and manipulate data, you'll need to be mindful of security. *Never* store passwords as plaintext in the database. An easy way to avoid this is to use the built in ActiveRecord method `has_secure_password`. Put this in your user model.
+If you are building a CMS that allows users to log in, log out, and manipulate data, you'll need to be mindful of security. A good first step is to *Never* store passwords as plaintext in the database. The gem 'bcrypt' paired with ActiveRecord tightens security by transforming the user's password into a seemingly random string of letters and numbers. Bcrypt allows you to authenticate the user's password against this encrypted version stored in the database (for example when they are logging in). Name the password column of your user's table (in your database) `password_digest` (you'll use the normal "string" datatype) and put this line of code in your user model: `has_secure_password`.
 
-If your user will be entering info via forms, you will need to validate some of their input. 
+You will also need to limit GET, POST, PATCH and DELETE routes so user1 can't edit (or maybe worse, delete) user2's content. You can add an additional layer of security by limiting what loads in the view based on who the current user is, and who is the owner of the content. A simple helper method in the application controller to determine the current user might look like:
 
-You will also need to limit the routes so user1 can't edit (or maybe worse, delete) user2's content.  Logic can be placed in the routes to avoid this, and you can add an additional layer of security by limiting what loads in the view based on who the current user is, and who is the owner of the content. A simple helper method in the application controller to determine the current user might look like:
+```
+def current_user 
+@current_user ||= User.find_by(:username => session[:username]) if session[:username]
+end
+```
 
-`    def current_user
-      @current_user ||= User.find_by(:username => session[:username]) if session[:username]
-    end`
+Another way to harden security is with a session secret. 
+This is a key used for signing and encrypting cookies set by your application to allow user to remain logged in without  having to re-login with every page load. A malicious party can use the secret to decrypt these cookies and pretend to be logged in to someone else's account.
+
+The session secret:
+* should *not* manually entered (a randomly generated key of at least 64 bytes is best)
+* should *not* be easy to guess (please don't use "secret" in development because you may forget to switch it over when deploying to a production environment) and 
+* should *not* be submitted to your github repo (use the DotEnv ruby gem
+
+[This blog post](https://mackenzie-km.github.io/secure_session_secrets_for_sinatra) by Mackenzie Moore dives a bit deeper into session secrets and how to install and implement DotEnv.
+
+
