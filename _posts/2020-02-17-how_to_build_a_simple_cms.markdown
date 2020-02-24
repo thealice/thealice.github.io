@@ -22,7 +22,7 @@ For my project, I wanted to keep track of data stored in lists. I didn't want my
 
 Think through your database, before building it out. I found [this blog post](https://alicebrunel.github.io/sinatra_portfolio_project_-_database_design) by fellow Flatiron student Alice Brunel helpful when thinking this through.
 
-The planning process takes time--don't rush it! Initially I had grand ideas for what my app would do, and when I got to designing the database I decided to pair back to meet the requirements of my project without going overboard. If you aren't super comfortable with has_many_through associations, you can start with has_many and belongs_to relationships.
+The planning process takes time--don't rush it! Initially I had grand ideas for what my app would do, and when I got to designing the database I decided to pair back to meet the requirements of my project without going overboard. If you aren't super comfortable with has_many :through associations, you can start with has_many and belongs_to relationships.
 
 Once you have a pretty good idea of how the models, views and controller will interact, it's time to...
 
