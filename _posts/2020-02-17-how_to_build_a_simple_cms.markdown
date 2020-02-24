@@ -28,12 +28,12 @@ Once you have a pretty good idea of how the models, views and controller will in
 
 ## Get Started
 
-At this point you can build out your directory structure, add config and environment files, connect your app to a database and build out the database migration files to set up your database tables. You'll want to add some gems in your Gemfile to help get things working (Sinatra, ActiveRecord, Rake, Require all, Sqlite3, Pry, and Shotgun to name a few essentials). BUT! You can skip this part of the process by installing a gem called [Corneal](https://github.com/thebrianemory/corneal) that will populate your app with all the files and gems it needs to get started. 
+At this point you can build out your directory structure, add config and environment files, connect your app to a database and build out the database migration files to set up your database tables. You'll want to add some gems in your Gemfile to help get things working (Sinatra, ActiveRecord, Rake, Require All, Sqlite3, Pry, and Shotgun to name a few essentials). BUT! You can skip this part of the process by installing a gem called [Corneal](https://github.com/thebrianemory/corneal) that will populate your app with all the files and gems it needs to get started. 
 
 ## Here's how:
 
 Install corneal with `gem install corneal`
-Make sure you are in the appropriate directory (one level up from where your app will live) and type `corneal APP-NAME new` into the command line. This will create a directery named whatever you replace APP-NAME with and populate it with all the files you need for a simple Model-View-Controller (MVC) Sinatra application. The entire directory structure will look something like this ![]http://)
+Make sure you are in the appropriate directory (one level up from where your app will live) and type `corneal APP-NAME new` into the command line. This will create a directery named whatever you replace APP-NAME with and populate it with all the files you need for a simple Model-View-Controller (MVC) Sinatra application. The entire directory structure will look something like this ![](https://imgur.com/Kj4vTyp)
 
 CD into the new app directory and run `bundle install` to install your gems.
 Then run `shotgun` to test that everything is working. Debug as needed.
