@@ -33,7 +33,7 @@ At this point you can build out your directory structure, add config and environ
 ## Here's how:
 
 Install corneal with `gem install corneal`
-Make sure you are in the appropriate directory (one level up from where your app will live) and type `corneal APP-NAME new` into the command line. This will create a directery named whatever you replace APP-NAME with and populate it with all the files you need for a simple Model-View-Controller (MVC) Sinatra application. The entire directory structure will look something like this ![](https://imgur.com/Kj4vTyp)
+Make sure you are in the appropriate directory (one level up from where your app will live) and type `corneal APP-NAME new` into the command line. This will create a directery named whatever you replace APP-NAME with and populate it with all the files you need for a simple Model-View-Controller (MVC) Sinatra application. The entire directory structure will look something like this ![sinatra directory structure](https://i.imgur.com/Kj4vTyp.png)
 
 CD into the new app directory and run `bundle install` to install your gems.
 Then run `shotgun` to test that everything is working. Debug as needed.
@@ -74,7 +74,8 @@ Once your models are setup you can move on to Views and Controllers.
 
 ## Controllers
 
-Controllers are where you'll be setting the routes for your CRUD actions, among other things. CRUD stands for Create, Read, Update, Delete, all ways of manipulating data. In your controller, you will determine what view is rendered based on the URL the user is visiting. To create a new piece of content, a user might be directed to an html form in a view file (conventionally called new.erb). The controller will direct them there when, for instance they go to www.example.com/list/new.  Once the user submits the form, its POST action will send the inputted information back to the controller, which will extract the inputted data and store it to the database using the params hash. If a user enters information into an input with the name "content", the inputted data can be retrieved in the POST route within the controller viea the content key of the params hash, eg. params[:content].  Edit forms use a PATCH action and delete forms use a DELETE action, but otherwise work in pretty much the same way.
+Controllers are where you'll be setting the routes for your CRUD actions, among other things. CRUD stands for Create, Read, Update, Delete, all ways of manipulating data. In your controller, you will set your GET, POST, PATCH and DELETE routes. This will determine what view is rendered based on the URL the user is visiting. To create a new piece of content, a user might be directed to an html form in a view file (conventionally called new.erb). The controller will render the view when, for instance they go to www.example.com/list/new.  In our example, this view contains a form that allows the user to add some new content. The controller communicates with the view file mapped to the controller method, so any instance variables set in the controller can be read by the mapped view file. Once the user submits a form, its POST action will send the inputted information back to the controller, which will extract the inputted data and store it to the database using the params hash. If a user enters information into an input with the name "content", the inputted data can be retrieved in the POST route within the controller via the content key of the params hash, eg. params[:content].  Edit forms use a PATCH action and  delete forms use a DELETE action, but otherwise work in pretty much the same way. 
+**Note:** You'll want to place  `use Rack::MethodOverride` in your config.ru file. This lets you use PATCH and DELETE routes since this is not a built in feature of ActiveRecord.
 
 ## Views
 
@@ -96,17 +97,17 @@ As mentioned above, views are the way in which we display content to a site visi
 </ol>
 ```
 
-You'll notice this view has ruby embedded within ERB tags. It might be better for me to take a bit more logic out of the view and put it into the lists controller.
+You'll notice this view has ruby embedded within ERB tags. In this example `@list` is an instance variable defined in the controller. It might be better for me to take a bit more logic out of the view above and put it into the lists controller.
 
 ## Security
 
-If you are building a CMS that allows users to log in, log out, and manipulate data, you'll need to be mindful of security. A good first step is to *Never* store passwords as plaintext in the database. The gem 'bcrypt' paired with ActiveRecord tightens security by transforming the user's password into a seemingly random string of letters and numbers. Bcrypt allows you to authenticate the user's password against this encrypted version stored in the database (for example when they are logging in). Name the password column of your user's table (in your database) `password_digest` (you'll use the normal "string" datatype) and put this line of code in your user model: `has_secure_password`.
+If you are building a CMS that allows users to log in, log out, and manipulate data, you'll need to be mindful of security. A good first step is to *Never* store passwords as plaintext in the database. The gem 'bcrypt' paired with ActiveRecord tightens security by transforming the user's password into a seemingly random string of letters and numbers. Name the password column of your user's table (in your database) `password_digest` (you'll use the normal "string" datatype) and put this line of code in your user model: `has_secure_password`. `has_secure_password` is an ActiveRecord macro that works with Bcrypt. It allows us to call .authenticate and use` password_digest`. Bcrypt stores a salted, hashed version of user passwords in the database in the password_digest column. Pairing Bcrypt and ActiveRecord allows you to authenticate the user's password against the encrypted version stored in the database (for example when they are logging in).
 
 You will also need to limit GET, POST, PATCH and DELETE routes so user1 can't edit (or maybe worse, delete) user2's content. You can add an additional layer of security by limiting what loads in the view based on who the current user is, and who is the owner of the content. A simple helper method in the application controller to determine the current user might look like:
 
 ```
 def current_user 
-    @current_user ||= User.find_by(:username => session[:username]) if session[:username]
+    @current_user ||= User.find_by(:id => session[:id]) if session[:id]
 end
 ```
 
