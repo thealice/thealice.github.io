@@ -33,7 +33,7 @@ At this point you can build out your directory structure, add config and environ
 ## Here's how:
 
 Install corneal with `gem install corneal`
-Make sure you are in the appropriate directory (one level up from where your app will live) and type `corneal APP-NAME new` into the command line. This will create a directery named whatever you replace APP-NAME with and populate it with all the files you need for a simple Model-View-Controller (MVC) Sinatra application. The entire directory structure will look something like this ![sinatra directory structure](https://i.imgur.com/Kj4vTyp.png)
+Make sure you are in the appropriate directory (one level up from where your app will live) and type `corneal APP-NAME new` into the command line. This will create a directery named whatever you replace APP-NAME with and populate it with all the files you need for a simple Model-View-Controller (MVC) Sinatra application. The entire directory structure will look something like this: ![sinatra directory structure](https://i.imgur.com/Kj4vTyp.png)
 
 CD into the new app directory and run `bundle install` to install your gems.
 Then run `shotgun` to test that everything is working. Debug as needed.
