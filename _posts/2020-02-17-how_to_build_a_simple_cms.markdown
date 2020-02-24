@@ -28,7 +28,7 @@ Once you have a pretty good idea of how the models, views and controller will in
 
 ## Get Started
 
-At this point can build out your directory structure, add config and environment files, connect your app to a database and build out the database migration files to set up your database tables. You'll want to add some gems in your Gemfile to help get things working (Sinatra, ActiveRecord, Rake, Require all, Sqlite3, Pry, and Shotgun to name a few essentials). BUT! You can skip this part of the process by installing a gem called [Corneal](https://github.com/thebrianemory/corneal) that will populate your app with all the files and gems it needs to get started. 
+At this point you can build out your directory structure, add config and environment files, connect your app to a database and build out the database migration files to set up your database tables. You'll want to add some gems in your Gemfile to help get things working (Sinatra, ActiveRecord, Rake, Require all, Sqlite3, Pry, and Shotgun to name a few essentials). BUT! You can skip this part of the process by installing a gem called [Corneal](https://github.com/thebrianemory/corneal) that will populate your app with all the files and gems it needs to get started. 
 
 ## Here's how:
 
