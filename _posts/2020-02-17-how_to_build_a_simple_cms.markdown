@@ -83,17 +83,17 @@ As mentioned above, views are the way in which we display content to a site visi
 
 ```
 <p class="details">
-		authored by: <a href="/users/<%= list_owner.id %>"><%= list_owner.username %></a>
-		<% if @list.category %>
-				<br>
-				category: <a href="/categories/<%= @list.category.id %>"><%= @list.category.name %></a> 
-		<% end %>
+authored by: <a href="/users/<%= list_owner.id %>"><%= list_owner.username %></a>
+<% if @list.category %>
+<br>
+category: <a href="/categories/<%= @list.category.id %>"><%= @list.category.name %></a> 
+<% end %>
 </p>
 
 <ol class="show-list">
-		<% @list.list_items.each do |item| %>
-				<li><%= item.content  %></li>
-		<% end %>
+<% @list.list_items.each do |item| %>
+<li><%= item.content  %></li>
+<% end %>
 </ol>
 ```
 
