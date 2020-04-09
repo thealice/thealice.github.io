@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Getting Started on Your Rails App: A Step-by-Step Guide"
-date:       2020-04-09 05:43:46 +0000
+date:       2020-04-09 01:43:47 -0400
 permalink:  getting_started_on_your_rails_app_a_step-by-step_guide
 ---
 
@@ -17,7 +17,7 @@ Writing some user stories can help you determine what your requirements will be.
 * So that <some reason>
 
 #### Mapping out your models
-Mapping out what models you think it'll need and how they will associate with one another. It helps to write this down in a notes doc so you can take the information and fill in the migration files and model associations later. 
+Mapping out what models you think it'll need and how they will associate with one another. It helps to write this down in a notes doc so you can take the information and fill in the migration files and model associations later. [This article on the Odin Project](https://www.theodinproject.com/courses/ruby-on-rails/lessons/active-record-associations) was really helpful for me when thinking through some of the more complex associations.
 
 Post
 
