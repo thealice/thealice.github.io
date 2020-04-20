@@ -12,9 +12,9 @@ As always everything starts with planning. Think through what you want your app 
 
 #### User Stories
 Writing some user stories can help you determine what your requirements will be. These can be formatted something like this:
-* As a <type of user>
-* I want <some goal>
-* So that <some reason>
+* As a *type of user*
+* I want *a goal*
+* So that *a reason*
 
 #### Mapping out your models
 Mapping out what models you think it'll need and how they will associate with one another. It helps to write this down in a notes doc so you can take the information and fill in the migration files and model associations later. [This article on the Odin Project](https://www.theodinproject.com/courses/ruby-on-rails/lessons/active-record-associations) was really helpful for me when thinking through some of the more complex associations.
@@ -25,8 +25,8 @@ Post
 `content:text`
 
 belongs_to :user
-has_many :post_categories
-has_many :categories, through: :post_categories
+has_many :item_categories
+has_many :categories, through: :item_categories
 has_many :comments
 
 #### Draw out your schema
@@ -50,10 +50,12 @@ rails g model ModelName
 or, if you include the attributes and their datatypes, this will also generate a migration for create_modelnames
 Eg.
 ```
-rails g model User name:string email:string password_digest:string height:integer something:boolean
+rails g model Shop Shop name:string status:string user:references
 ```
 
-The model generator will also add routes in *config/routes.rb*,  controllers, eg. *app/controllers/users_controller.rb* and helpers eg. *app/helpers/users_helper.rb*.
+The model generator will also add routes in *config/routes.rb*,  controllers, eg. *app/controllers/shops_controller.rb* and helpers eg. *app/helpers/shops_helper.rb*.
+
+This generation would also create a belongs_to association between shops and users.
 
 **Note:** If you aren't sure how to use Rails generators, running `rails generate GENERATOR --help` will return all the options that can be passed to the generator.
 
@@ -86,54 +88,103 @@ Open up your console by running `rails c` or `rails c -s` (the -s flag is to ope
 
 Test out your relationships by creating new instances of each model in the console with associations and making sure your results are as expected. Debug as needed.
 
-### Add authentication
+### Add authentication and validations
 If your app will be allowing users to log in with a password, you'll need a way to authenticate them. Rails makes this easy if you:
 * add has_secure_password to User model
 * add gem 'brycrpt' to your Gemfile and run ```bundle```
 
 These will add an authenticate method to validate a user's password and/or password confirmation.
 
+Another option is to use [Devise](https://github.com/heartcombo/devise) to generate your User model. 
+1. Install Devise: `rails g devise:install`
+2. Configure devise in *config/initializers/devise.rb*
+3. Generate your user model: `rails g devise model User `
+4. Setup authentication in your user model. This is how I did it in my Rails project, you will have to determine the best setup for your needs:
+```  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [:facebook]```
+				 
+With Devise you can use built-in methods like `authenticate_user!` (this makes sure the user is logged in) in your controllers. It can also validate user data for you, set up a password recovery flow, determine password requirements for stronger passwords and use omniauth to log in users from 3rd parties like Facebook and Google.
+
 ### Add more gems
-I include 'pry' for testing. 
+I like to inclue 'pry' in development and test environments.
 
 There are [so many](https://rubygems.org/) other [gems](https://www.ruby-toolbox.com/) that can [help you accomplish](https://dwayne.fm/rails-gems-to-consider/) your app's goals, but before installing them you'll want to consider if the problem is big enough to require a gem or if you'd be better off coding it out yourself. 
 If the problem is a common one, chances are someone else has come up with a solution that may fit your needs. Gems with clean code that are well maintained and documented and relatively popular are genereally the sefest bet when deciding which gems to go with.
 
+In this project I also included:
+* [Bootstrap](https://getbootstrap.com/)
+* [Omniauth](https://github.com/omniauth/omniauth)
+* [Kramdown](https://github.com/gettalong/kramdown)
+
 ### Routes
-If you used the model generator, it will have add all RESTful routes for each model by adding a line for each model in *config/routes.rb*, eg.
+If you used the model generator, it may have added all RESTful routes for each model by adding a line for each model in *config/routes.rb*, eg.
 
 ```
   resources :users
-  resources :posts
+  resources :shops
 	resources :categories
-  resources :comments
+  resources :items
 ```
 
-You will probably want to edit these to only include what you need, extra routes will slow down your app. If you are adding any custom routes, I suggest putting them at the top, since the order here matters and you'll end up with errors if you declare custom routes after the built in dynamic ones. I might edit the above to look like:
+You will probably want to edit these to only include what you need, extra routes will slow down your app. If you are adding any custom routes, I suggest putting them at the top, since the order here matters and you'll end up with errors if you declare custom routes after the built in dynamic ones. I edited my routes look like:
 
 ```
-  root 'posts#index'
-  get '/signup' => 'users#new'
+  root to: 'items#index'
+  get '/items', to: 'items#index'
+  
+  resources :shops do
+    resources :items
+  end
+  resources :categories, only: [:show, :index]
 
-  resources :categories, only: [:index, :show]
-  resources :users, except: [:delete]
-  resources :posts
+  resources :conversations do
+    resources :messages
+  end
+  
+  devise_for :users,
+    :controllers => { registrations: 'users/registrations', omniauth_callbacks: "users/omniauth_callbacks" },
+    :path_names => {
+      :sign_in => 'login',
+      :sign_out => 'logout',
+      :registration => 'register',
+      :sign_up => 'signup' 
+    }
 ```
-
 
 ### Add Controllers and Actions
 
-As mentioned above the model generated a controller in *app/controllers/*. The controller should inherit from ApplicationController. At this point I will start up the server with `rails s` to help me see how things are working and let th e errors help guide me. I'll typically add controller actions, then views then go between the two while clicking through on the front-end until the app starts to take shape.
+As mentioned above, the model generated a controller in *app/controllers/*. The controller should inherit from ApplicationController. At this point, if I haven't already, I will start up the server with `rails s` to help me see how things are working and let the errors help guide me. I'll typically add controller actions, then views then go between the two while clicking through on the front-end until the app starts to take shape.
 
 ### Add Views
-Forms for adding new resources, indexes (indeces?), and show pages.
+Views include forms for adding new resources, indexes (indeces?), and show pages. Logic should be kept out of views as much as possible. Views are for displaying information to those using the site. They contain HTML and ERB code.
 
-### Validations and Error messaging
+### Error messaging
 
-### Refactoring
-#### Helper Methods
-#### Class Methods
-#### Partials
+Error messaging will help you build your app as well as indicate what is going on to the end users.
+I added this code to my site's header in the *application.html.erb* layout:
+```
+<% flash.each do |type, message| %>
+        <div class="notices-and-alerts">
+          <% if type == "alert" %>
+            <div class="bg-red">
+              <div class="container"><%= message %></div>
+            </div>
+          <% end %>
+          <% if type == "notice" %>
+            <div class="bg-green">
+              <div class="container"><%= message %></div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+			```
+			
+That also differentiates between notices (when things go as expected) and alerts (when they don't). I ran out of time to style these so the background changes color depending on the type of alert, but I like the idea anyway.
+			
+
+			
+		
 
 
 
