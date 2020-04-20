@@ -127,8 +127,8 @@ If you used the model generator, it may have added all RESTful routes for each m
 
 You will probably want to edit these to only include what you need, extra routes will slow down your app. If you are adding any custom routes, I suggest putting them at the top, since the order here matters and you'll end up with errors if you declare custom routes after the built in dynamic ones. I edited my routes look like:
 
-```
-  root to: 'items#index'
+  ```
+root to: 'items#index'
   get '/items', to: 'items#index'
   
   resources :shops do
@@ -147,8 +147,8 @@ You will probably want to edit these to only include what you need, extra routes
       :sign_out => 'logout',
       :registration => 'register',
       :sign_up => 'signup' 
-    }```
-
+    }
+```
 
 ## Add Controllers and Actions
 
@@ -162,7 +162,8 @@ Views include forms for adding new resources, indexes (indeces?), and show pages
 Error messaging will help you build your app as well as indicate what is going on to the end users.
 I added this code to my site's header in the *application.html.erb* layout:
 
-```<% flash.each do |type, message| %>
+```
+<% flash.each do |type, message| %>
         <div class="notices-and-alerts">
           <% if type == "alert" %>
             <div class="bg-red">
@@ -175,7 +176,8 @@ I added this code to my site's header in the *application.html.erb* layout:
             </div>
           <% end %>
         </div>
-      <% end %>```
+      <% end %>
+```
 
 
 That also differentiates between notices (when things go as expected) and alerts (when they don't). I ran out of time to style these so the background changes color depending on the type of alert, but I like the idea anyway.
