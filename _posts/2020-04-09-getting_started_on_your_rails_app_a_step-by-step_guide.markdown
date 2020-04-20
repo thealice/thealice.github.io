@@ -127,7 +127,8 @@ If you used the model generator, it may have added all RESTful routes for each m
 
 You will probably want to edit these to only include what you need, extra routes will slow down your app. If you are adding any custom routes, I suggest putting them at the top, since the order here matters and you'll end up with errors if you declare custom routes after the built in dynamic ones. I edited my routes look like:
 
-```root to: 'items#index'
+```
+root to: 'items#index'
   get '/items', to: 'items#index'
   
   resources :shops do
