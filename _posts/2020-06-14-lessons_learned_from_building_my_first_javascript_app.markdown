@@ -1,7 +1,7 @@
 ---
 layout: post
-title:      "Lessons learned from building my first Javascript App"
-date:       2020-06-14 08:38:38 +0000
+title:      "Lessons learned building my first Javascript App"
+date:       2020-06-14 04:38:39 -0400
 permalink:  lessons_learned_from_building_my_first_javascript_app
 ---
 
@@ -18,23 +18,8 @@ Our fourth portfolio project had the following minimum requirements:
 
 4. The backend and frontend must collaborate to demonstrate Client-Server Communication. Your application should have at least 3 AJAX calls, covering at least 2 of Create, Read, Update, and Delete (CRUD). Your client-side JavaScript code must use `fetch` with the appropriate HTTP verb, and your Rails API should use RESTful conventions.
 
-The Rails API backend is where any data for the project is stored. 
+My friends and I like to play a pictionary-like game when we're together and since we've been sheltering-in-place I decided to try and code one to play via video chat. 
 
-key concepts:
+The Rails API backend is where any data for the project is presisted to the database. In my case, I had an API for what I was calling "Themes" (the category a game and a prompt fit under) and "Prompts" (the word(s) a player has to draw). On my local machine these could be found at `http://localhost:3000/api/v1/themes` and `http://localhost:3000/api/v1/prompts`. When the frontend needs access to data stored in the backend database, for instance, when we begin a game and the game needs to know all the different prompt cards that make up a deck, we can use Asynchronous JavaScript and XML (AJAX) to make requests to the server without reloading the page. We can retrieve that data using the `fetch()` method, which returns a data object in response with information about each Prompt. THEN we process that response with a `then()` method to get the actual content of the prompts in JSON (or text) format. Finally, we use another `then()` method to actually do something with those Prompts. You can see how this works in the code below:
 
-variables
-data structures
-functions
-callbacks
-hoisting
-scope
-context
-this
-closures
-ES6 syntax
-let, const
-arrow functions
-cors
-AJAX
-JSON
-async vs. sync
+![](https://imgur.com/ux0SWiZ)
