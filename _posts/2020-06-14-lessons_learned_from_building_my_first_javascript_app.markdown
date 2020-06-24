@@ -36,6 +36,6 @@ x and y start at the top left of the canvas, so when you set x and y that is det
 
 You can draw shapes and text:
 
-![ctx drawing example code](https://i.imgur.com/AXQg8qR.png)
+![ctx drawing example code](https://i.imgur.com/wSiU9Gj.png)
 
 But I'm interested in free drawing.
