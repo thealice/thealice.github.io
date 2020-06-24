@@ -30,12 +30,12 @@ Much of my project ended up being about manipulating the DOM (adding and removin
 
 We do this by calling `getContext()` on the canvas and setting it to a variable (commonly `ctx`), see below:
 
-![getContext('2d') example code](https://i.imgur.com/nCacPKH.png)
+![getContext('2d') example code](https://i.imgur.com/R4fKc3p.png)
 
 x and y start at the top left of the canvas, so when you set x and y that is determined by how for to the right and below the starting point.
 
 You can draw shapes and text:
 
-![ctx drawing example code](https://i.imgur.com/wSiU9Gj.png)
+![ctx drawing example code](https://i.imgur.com/UZV7WCv.png)
 
 But I'm interested in free drawing.
