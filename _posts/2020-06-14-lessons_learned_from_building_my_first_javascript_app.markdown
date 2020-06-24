@@ -40,7 +40,7 @@ You can draw shapes and text:
 
 ![ctx drawing example code](https://i.imgur.com/UZV7WCv.png)
 
-But I'm interested in free drawing. To do this, we need to use the [beginPath()](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath) method.
+But I'm interested in free drawing. To do this, we need to use the [beginPath()](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath), `moveTo()` and `lineTo()` methods.
 
 To draw a line, we must tell the canvas where to begin the line and where to end it.
 
