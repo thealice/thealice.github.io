@@ -28,3 +28,14 @@ The Rails API backend is where any data for the project is presisted to the data
 
 Much of my project ended up being about manipulating the DOM (adding and removing game setup forms and instructional text) to keep this a single page app. But the part I was most excited to build was the drawing portion. Going into the project I had no idea how this would be done. After a little bit of research I found there is an HTML5 element called [canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) that makes all of that possible with surprisingly little code. According to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) "The actual drawing is done using the `CanvasRenderingContext2D` interface."
 
+We do this by calling `getContext()` on the canvas and setting it to a variable (commonly `ctx`), see below:
+
+![getContext('2d') example code](https://i.imgur.com/nCacPKH.png)
+
+x and y start at the top left of the canvas, so when you set x and y that is determined by how for to the right and below the starting point.
+
+You can draw shapes and text:
+
+![ctx drawing example code](https://i.imgur.com/AXQg8qR.png)
+
+But I'm interested in free drawing.
