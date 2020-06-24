@@ -48,4 +48,4 @@ To draw a line, we must tell the canvas where to begin the line and where to end
 
 But again, I can't just hard code in where the line starts and stops! This is determined by where the player's mouse is when they click down on the mouse to start, and where they move their mouse to before they mouse up. That means we have to set an event listener to listen for where the mouse is when it is clicked (and therefore where we should start drawing)
 
-![mouseDown eventListener](https://i.imgur.com/82mpkAz.png)
+![mouseDown eventListener](https://i.imgur.com/Wpx9dDa.png)
