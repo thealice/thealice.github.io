@@ -49,3 +49,11 @@ To draw a line, we must tell the canvas where to begin the line and where to end
 But again, I can't just hard code in where the line starts and stops! This is determined by where the player's mouse is when they click down on the mouse to start, and where they move their mouse to before they mouse up. That means we have to set an event listener to listen for where the mouse is when it is clicked (and therefore where we should start drawing)
 
 ![mouseDown eventListener](https://i.imgur.com/Wpx9dDa.png)
+
+We also need to set and event listener for when the player moves their mouse to actually begin drawing:  `canvas.addEventListener('mousemove', beginDrawing);`
+
+And, of course, we need to code the beginDrawing() function:
+
+![beginDrawing() function](https://i.imgur.com/nnvOWrr.png)
+
+MDN has more info on the [`stroke()` method](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke).
