@@ -52,8 +52,11 @@ But again, I can't just hard code in where the line starts and stops! This is de
 
 We also need to set and event listener for when the player moves their mouse to actually begin drawing:  `canvas.addEventListener('mousemove', beginDrawing);`
 
-And, of course, we need to code the beginDrawing() function:
+And, of course, we need to code the `beginDrawing()` function:
 
-![beginDrawing() function](https://i.imgur.com/nnvOWrr.png)
+![beginDrawing() function](https://i.imgur.com/3Nl115s.png)
 
 MDN has more info on the [`stroke()` method](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke).
+
+Finally we need stop drawing when the player is no longer clicking down on the mouse
+`canvas.addEventListener('mouseup', () => isDrawing = false);` or when the mouse goes off the canvas `canvas.addEventListener('mouseout', () => isDrawing = false);`
