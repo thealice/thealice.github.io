@@ -1,6 +1,6 @@
 ---
 layout: post
-title:      "Lessons learned building my first Javascript App"
+title:      "HTML Canvas and My first Javascript App"
 date:       2020-06-14 04:38:39 -0400
 permalink:  lessons_learned_from_building_my_first_javascript_app
 ---
@@ -45,3 +45,7 @@ But I'm interested in free drawing. To do this, we need to use the [beginPath()]
 To draw a line, we must tell the canvas where to begin the line and where to end it.
 
 ![beginPath() example code](https://i.imgur.com/Jas2aQY.png)
+
+But again, I can't just hard code in where the line starts and stops! This is determined by where the player's mouse is when they click down on the mouse to start, and where they move their mouse to before they mouse up. That means we have to set an event listener to listen for where the mouse is when it is clicked (and therefore where we should start drawing)
+
+![mouseDown eventListener](https://i.imgur.com/82mpkAz.png)
