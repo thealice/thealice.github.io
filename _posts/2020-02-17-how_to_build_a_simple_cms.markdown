@@ -38,6 +38,8 @@ Make sure you are in the appropriate directory (one level up from where your app
 CD into the new app directory and run `bundle install` to install your gems.
 Then run `shotgun` to test that everything is working. Debug as needed.
 
+## Models
+
 Add your models. Corneal can get this started for you too! 
 Type `corneal scaffold MODEL` (replacing MODEL with the name of your model, singular). You can even add attributes to your model that will be added to the database migration files at the same time by typing `corneal scaffold MODEL ATTR-NAME:DATATYPE ATTR-NAME:DATATYPE`
 For example, `corneal scaffold user username:string password_digest:string` will add a new user.rb file in the models directory, a user directory under "views" with index.erb, show.erb, new.erb and edit.erb, and a database migration file that looks like the following:
@@ -115,7 +117,7 @@ Another way to harden security is with a session secret.
 This is a key used for signing and encrypting cookies set by your application to allow user to remain logged in without  having to re-login with every page load. A malicious party can use the secret to decrypt these cookies and pretend to be logged in to someone else's account.
 
 The session secret:
-* should *not* manually entered (a randomly generated key of at least 64 bytes is best)
+* should *not* be manually entered (a randomly generated key of at least 64 bytes is best)
 * should *not* be easy to guess (please don't use "secret" in development because you may forget to switch it over when deploying to a production environment) and 
 * should *not* be submitted to your github repo (use the DotEnv ruby gem)
 
