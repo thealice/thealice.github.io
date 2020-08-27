@@ -91,6 +91,6 @@ state = {
 When you connect your component to the store, I mentioned above you will pass in mapStateToProps (the function) as an argument. If you're updating the state in this component, you'll also want to pass in either a mapDispatchToProps() function, or an object. Then the component will have access to the dispatch method as dispatch() rather than this.props.store.dispatch() and you can dispatch your action from the event handler.
 code at the bottom of a LocationForm component. mapDispatchToProps is passing in an action creator to dispatch, the return value of which is an action object
 
-*Dispatch CAN return a promise (when asynchronously fetching data, for instance) when paired with middleware like Redux Thunk.
+\*Dispatch CAN return a promise (when asynchronously fetching data, for instance) when paired with middleware like Redux Thunk.
 
 
