@@ -14,7 +14,7 @@ At first I had trouble grasping the point of Redux besides adding what seemed li
 
 On top of that, all the steps came with a bunch of new confusing terminology. My brain, not exactly in peak condition busy as it was constantly re-learning how life is supposed to work in 2020, just about broke waiting for everything to fall into place.
 
-![Action creator, don't leave the house, store, stop touching your face, mapDispatchToProps…was that teargas???](https://media.giphy.com/media/3o7aCWDyW0PJCsxHna/giphy.gif)
+![Action creator, don't leave the house, store, stop touching your face, mapDispatchToProps…was that teargas???](https://media.giphy.com/media/3o7aCWDyW0PJCsxHna/source.gif)
 
 Now that I'm (am I?) on the other side of that, I thought I'd break down a few of the fundamental concepts in case it helps someone else avoid what I'm calling the Redux Brain Break.
 
@@ -58,7 +58,7 @@ Mapping the formData to a component's props allows that component (in this case 
 ```
 But what if we're loading a fresh form to add a new location and we want to reset the formData so it doesn't display anything until a user types new information into the form? Or someone needs to edit that data? We can't do something like create a function that returns this.setState({new form data goes here}) to update the state. No…that would be too easy for Redux.
 
-![](https://media.giphy.com/media/JRhS6WoswF8FxE0g2R/giphy.gif)
+![](https://media.giphy.com/media/JRhS6WoswF8FxE0g2R/source.gif)
 
 ## Breaking Down The Redux Flow
 Remember the Rube Goldberg-like series of events I alluded to earlier? Well, here's where that really kicks in. To update the store'sstate a very specific series of events must take place. It doesn't really feel like a linear path, though, at least not in my brain (which happens to be very prone to tangents). This is what that path looks like to me:
@@ -91,6 +91,6 @@ state = {
 When you connect your component to the store, I mentioned above you will pass in mapStateToProps (the function) as an argument. If you're updating the state in this component, you'll also want to pass in either a mapDispatchToProps() function, or an object. Then the component will have access to the dispatch method as dispatch() rather than this.props.store.dispatch() and you can dispatch your action from the event handler.
 code at the bottom of a LocationForm component. mapDispatchToProps is passing in an action creator to dispatch, the return value of which is an action object
 
-* *Dispatch CAN return a promise (when asynchronously fetching data, for instance) when paired with middleware like Redux Thunk.*
+*Dispatch CAN return a promise (when asynchronously fetching data, for instance) when paired with middleware like Redux Thunk.
 
 
