@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "React Redux Fundamentals"
-date:       2020-08-27 22:39:27 +0000
+date:       2020-08-27 18:39:29 -0400
 permalink:  react_redux_fundamentals
 ---
 
@@ -14,8 +14,7 @@ At first I had trouble grasping the point of Redux besides adding what seemed li
 
 On top of that, all the steps came with a bunch of new confusing terminology. My brain, not exactly in peak condition busy as it was constantly re-learning how life is supposed to work in 2020, just about broke waiting for everything to fall into place.
 
-
-Action creator, don't leave the house, store, stop touching your face, mapDispatchToProps…was that teargas???
+![Action creator, don't leave the house, store, stop touching your face, mapDispatchToProps…was that teargas???](https://media.giphy.com/media/3o7aCWDyW0PJCsxHna/giphy.gif)
 
 Now that I'm (am I?) on the other side of that, I thought I'd break down a few of the fundamental concepts in case it helps someone else avoid what I'm calling the Redux Brain Break.
 
@@ -59,6 +58,8 @@ Mapping the formData to a component's props allows that component (in this case 
 ```
 But what if we're loading a fresh form to add a new location and we want to reset the formData so it doesn't display anything until a user types new information into the form? Or someone needs to edit that data? We can't do something like create a function that returns this.setState({new form data goes here}) to update the state. No…that would be too easy for Redux.
 
+![](https://media.giphy.com/media/JRhS6WoswF8FxE0g2R/giphy.gif)
+
 ## Breaking Down The Redux Flow
 Remember the Rube Goldberg-like series of events I alluded to earlier? Well, here's where that really kicks in. To update the store'sstate a very specific series of events must take place. It doesn't really feel like a linear path, though, at least not in my brain (which happens to be very prone to tangents). This is what that path looks like to me:
 
@@ -68,6 +69,8 @@ Remember the Rube Goldberg-like series of events I alluded to earlier? Well, her
 4. Oh cool! Another word with no obvious meaning! Despite the name, the reducer is where most of the action happens. Back when we created the store (this happens at the very top of our app, often in index.js), it is passed a reducer (or a set of reducers) as an argument. A reducer is a pure function that takes in the previous state and an action as arguments, and returns a copy of the state, now updated. It looks like: `reducerName(initialState, action) => updatedState`. The reducer is what actually returns our updated state!
 
 So, eventHandler(event) => dispatch(action) => reducer(initialState, action) => Updated State!
+
+![](https://media.giphy.com/media/inyqrgp9o3NUA/giphy.gif)
 
 ## More on Reducers
 I said above that dispatch tells the store what action to take. I also said it triggers this action. Well, it triggers the action by passing the action object as an argument along with the current state to the reducer. If it is keeping track of more than one reducer the state and action are passed to all of them until a reducer with a switch case for the action's type is found and a new state is returned based on what the reducer tells it to return. In the case that the `action.type ==='RESET_FORM'`, for instance, it might return a copy of the state with blank form fields. I mention a "copy" of the state, because reducers are pure functions. This means there are no side effects and we can't change the original state, so we return a modified copy of it.
