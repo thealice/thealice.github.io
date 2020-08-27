@@ -10,7 +10,7 @@ For my final Flatiron portfolio project, I had to write a React app that made us
 
 At first I had trouble grasping the point of Redux besides adding what seemed like a billion new steps to complete a simple state change.
 
-![Still from 'The Way Things Go'. The tire will begin to move when the newpaper is ignited, setting off a 30 minute long series of similiar events that may or may not end in a simple task being completed.On top of that, all the steps came with a bunch of new confusing terminology. My brain, not exactly in peak condition busy as it was constantly re-learning how life is supposed to work in 2020, just about broke waiting for everything to fall into place.](http://https://cdn-images-1.medium.com/max/1600/1*p88Flb91tq9GLjwf-ng_qg.png)
+![Still from 'The Way Things Go'. The tire will begin to move when the newpaper is ignited, setting off a 30 minute long series of similiar events that may or may not end in a simple task being completed.](https://i.imgur.com/aB7GLXx.png)
 
 On top of that, all the steps came with a bunch of new confusing terminology. My brain, not exactly in peak condition busy as it was constantly re-learning how life is supposed to work in 2020, just about broke waiting for everything to fall into place.
 
