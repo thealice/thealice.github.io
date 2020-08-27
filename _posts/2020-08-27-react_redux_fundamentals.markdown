@@ -70,7 +70,7 @@ Remember the Rube Goldberg-like series of events I alluded to earlier? Well, her
 
 So, eventHandler(event) => dispatch(action) => reducer(initialState, action) => Updated State!
 
-![](https://media.giphy.com/media/inyqrgp9o3NUA/giphy.gif)
+![](https://media.giphy.com/media/inyqrgp9o3NUA/source.gif)
 
 ## More on Reducers
 I said above that dispatch tells the store what action to take. I also said it triggers this action. Well, it triggers the action by passing the action object as an argument along with the current state to the reducer. If it is keeping track of more than one reducer the state and action are passed to all of them until a reducer with a switch case for the action's type is found and a new state is returned based on what the reducer tells it to return. In the case that the `action.type ==='RESET_FORM'`, for instance, it might return a copy of the state with blank form fields. I mention a "copy" of the state, because reducers are pure functions. This means there are no side effects and we can't change the original state, so we return a modified copy of it.
