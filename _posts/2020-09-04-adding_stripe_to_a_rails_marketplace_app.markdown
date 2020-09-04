@@ -42,65 +42,65 @@ private_key:
 
 This is how to add omniauth for stripe to your user model if you are using devise:
 
-1.  To update your user model under Devise, first add `:omniauthable, omniauth_providers: [:stripe_connect]`
+To update your user model under Devise, first add `:omniauthable, omniauth_providers: [:stripe_connect]`
 Create omniauth_callbacks_controller.rb and set the flow for successful and unsuccessful logins
 `touch app/controllers/omniauth_callbacks_controller.rb`
 
 ```
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-  def stripe_connect
-    auth_data = request.env["omniauth.auth"]
-    @user = current_user
-    if @user.persisted?
-      @user.provider = auth_data.provider
-      @user.uid = auth_data.uid
-      @user.access_code = auth_data.credentials.token
-      @user.publishable_key = auth_data.info.stripe_publishable_key
-      @user.save
+def stripe_connect
+auth_data = request.env["omniauth.auth"]
+@user = current_user
+if @user.persisted?
+@user.provider = auth_data.provider
+@user.uid = auth_data.uid
+@user.access_code = auth_data.credentials.token
+@user.publishable_key = auth_data.info.stripe_publishable_key
+@user.save
 
-      sign_in_and_redirect @user, event: :authentication
-      flash[:notice] = 'Stripe Account Created And Connected' if is_navigational_format?
-    else
-      session["devise.stripe_connect_data"] = request.env["omniauth.auth"]
-      redirect_to root_path
-    end
-  end
+sign_in_and_redirect @user, event: :authentication
+flash[:notice] = 'Stripe Account Created And Connected' if is_navigational_format?
+else
+session["devise.stripe_connect_data"] = request.env["omniauth.auth"]
+redirect_to root_path
+end
+end
 
-  def failure
-    redirect_to root_path
-  end
+def failure
+redirect_to root_path
+end
 end
 ```
 
-2.  Add Stripe config under config/initializers/stripe.rb
+Add Stripe config under config/initializers/stripe.rb
 `touch config/initializers/stripe.rb`
 
 ```
 Rails.configuration.stripe = {
-  :publishable_key => Rails.application.credentials.dig(:stripe)[:public_key],
-  :secret_key => Rails.application.credentials.dig(:stripe)[:private_key]
+:publishable_key => Rails.application.credentials.dig(:stripe)[:public_key],
+:secret_key => Rails.application.credentials.dig(:stripe)[:private_key]
 }
 Stripe.api_key = Rails.application.credentials.dig(:stripe)[:private_key]
 ```
 
-3.  Verify it's working by running `Rails.application.credentials.dig(:stripe)[:publishable_key]` and the other lines in that file in rails console.
+Verify it's working by running `Rails.application.credentials.dig(:stripe)[:publishable_key]` and the other lines in that file in rails console.
 
-4.  Update helper methods to add `stripe_url` (in app/helpers/application_helper.rb or appliation_controller.rb wherever those helpers are going), eg:
+Update helper methods to add `stripe_url` (in app/helpers/application_helper.rb or appliation_controller.rb wherever those helpers are going), eg:
 ```
 module ApplicationHelper
-  def stripe_url
-    "https://connect.stripe.com/oauth/authorize?response_type=code&client_id=#{Rails.application.credentials.dig(:stripe)[:connect_client_id]}&scope=read_write"
-  end
+def stripe_url
+"https://connect.stripe.com/oauth/authorize?response_type=code&client_id=#{Rails.application.credentials.dig(:stripe)[:connect_client_id]}&scope=read_write"
+end
 end
 ```
 
 A note on hash dig: https://apidock.com/ruby/Hash/dig
 
-5.  Add this logic to the user model:
+Add this logic to the user model:
 ```
 def can_receive_payments?
-    uid? && provider? && publishable_key? && access_code?
+uid? && provider? && publishable_key? && access_code?
 end
 ```
 		
