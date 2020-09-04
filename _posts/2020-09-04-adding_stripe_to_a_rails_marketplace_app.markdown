@@ -27,11 +27,9 @@ gem 'omniauth-stripe-connect'
 3. Rails command to decrypt/generate credential YAML files
 My editor is VS Code so I typed this into my terminal to create it in VS Code:
 `EDITOR=" code --wait " rails credentials:edit`
-This is where you put production keys.
+This is where you put production keys. You can also specify an environment if you want to have separate keys for dev, testing and production: `EDITOR="code --wait" rails credentials:edit --environment=development`. You will add your keys here in this credentials file
 
-You can also specify an environment if you want to have separate keys for dev, testing and production:
-`EDITOR="code --wait" rails credentials:edit --environment=development`. You will add your keys here in this credentials file
-4. Find your connect client_id key, currently located at: dashboard.stripe.com/account/applications/settings
+4.  Find your connect client_id key, currently located at: dashboard.stripe.com/account/applications/settings
 publishable and private keys can be found under Developers > Api keys
 ```
 stripe: 
@@ -44,7 +42,7 @@ private_key:
 
 This is how to add omniauth for stripe to your user model if you are using devise:
 
-To update your user model under Devise, first add `:omniauthable, omniauth_providers: [:stripe_connect]`
+1.  To update your user model under Devise, first add `:omniauthable, omniauth_providers: [:stripe_connect]`
 Create omniauth_callbacks_controller.rb and set the flow for successful and unsuccessful logins
 `touch app/controllers/omniauth_callbacks_controller.rb`
 
@@ -75,7 +73,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 end
 ```
 
-Add Stripe config under config/initializers/stripe.rb
+2.  Add Stripe config under config/initializers/stripe.rb
 `touch config/initializers/stripe.rb`
 
 ```
@@ -86,9 +84,9 @@ Rails.configuration.stripe = {
 Stripe.api_key = Rails.application.credentials.dig(:stripe)[:private_key]
 ```
 
-Verify it's working by running `Rails.application.credentials.dig(:stripe)[:publishable_key]` and the other lines in that file in rails console.
+3.  Verify it's working by running `Rails.application.credentials.dig(:stripe)[:publishable_key]` and the other lines in that file in rails console.
 
-Update helper methods to add `stripe_url` (in app/helpers/application_helper.rb or appliation_controller.rb wherever those helpers are going), eg:
+4.  Update helper methods to add `stripe_url` (in app/helpers/application_helper.rb or appliation_controller.rb wherever those helpers are going), eg:
 ```
 module ApplicationHelper
   def stripe_url
@@ -99,7 +97,7 @@ end
 
 A note on hash dig: https://apidock.com/ruby/Hash/dig
 
-Add this logic to the user model:
+5.  Add this logic to the user model:
 ```
 def can_receive_payments?
     uid? && provider? && publishable_key? && access_code?
